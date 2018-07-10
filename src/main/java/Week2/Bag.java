@@ -30,12 +30,10 @@ public class Bag<Item> implements Iterable<Item> {
 		
 		Node iterator = first;
 		
-		@Override
 		public boolean hasNext() {
 			return size > 0;
 		}
 
-		@Override
 		public Item next() {
 			Item item = iterator.item;
 			iterator = iterator.next;
