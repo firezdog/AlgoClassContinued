@@ -37,6 +37,7 @@ public class Deque<Item> {
 	
 	public void addFirst(Item item) {
 		Node old = first;
+		if (first == last) last = old;
 		first = new Node();
 		first.item = item;
 		first.next = old;
@@ -45,6 +46,7 @@ public class Deque<Item> {
 	
 	public void addLast(Item item) {
 		Node old = last;
+		if (first == last) first = old;
 		last = new Node();
 		last.item = item;
 		if (old == null);
@@ -52,6 +54,7 @@ public class Deque<Item> {
 			old.next = last;			
 		}
 		size++;
+		if (first == null) first = last;
 	}
 	
 	public Item removeFirst() {
@@ -64,11 +67,11 @@ public class Deque<Item> {
 	public Item removeLast() {
 		Item item = last.item;
 		Node walker = first;
-		while (walker != last && walker.next != last) {
+		System.out.println(walker.next == last);
+		while (walker.next != last) {
 			walker = walker.next;
 		}
 		last = walker;
-		last.next = null;
 		size--;
 		return item;
 	}
