@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Week2.Deque.Node;
+
 class DequeTest {
 	
 	private Deque<String> d;
@@ -40,6 +42,7 @@ class DequeTest {
 	void testFirstLastInteraction() {
 		d.addFirst("Hello");
 		d.addLast("world");
+		assertEquals(d.getFirst().next.item, "world");
 		assertEquals(d.getFirst().item,"Hello");
 		assertEquals(d.getLast().item, "world");
 		d.addFirst("Well");
@@ -76,11 +79,23 @@ class DequeTest {
 	void testSizeDecreases() {
 		d.addFirst("well");
 		d.addLast("hello");
-		System.out.println("test size decreases");
 		d.removeLast();
 		assertEquals(d.size(),1);
 		d.removeFirst();
 		assertEquals(d.size(), 0);
+	}
+	
+	@Test
+	void testIterator() {
+		d.addFirst("well");
+		d.addFirst("world");
+		d.addFirst(",");
+		d.addLast("hello");
+		String s = "";
+		for(String n : d) {
+			s += n + " ";
+		}
+		System.out.println(s);
 	}
 
 }

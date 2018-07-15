@@ -2,23 +2,25 @@ package Week2;
 
 import java.util.Iterator;
 
-public class Deque<Item> {
+//First attempt -- end and beginning chains not connecting properly
+
+public class Deque<Item> implements Iterable<Item> {
 	
-	private Node first;
-	public Node getFirst() {
+	private Node<Item> first;
+	public Node<Item> getFirst() {
 		return first;
 	}
 
-	public Node getLast() {
+	public Node<Item> getLast() {
 		return last;
 	}
 
-	private Node last;
+	private Node<Item> last;
 	private int size;
 	
-	class Node {
+	class Node<Item> {
 		Item item;
-		Node next;
+		Node<Item> next;
 	}
 	
 	public Deque() {
@@ -36,20 +38,25 @@ public class Deque<Item> {
 	}
 	
 	public void addFirst(Item item) {
-		Node old = first;
+		Node<Item> old = first;
 		if (first == last) last = old;
-		first = new Node();
+		first = new Node<Item>();
+		if (last == old) {
+			first.next = last;
+		}
 		first.item = item;
 		first.next = old;
 		size++;
 	}
 	
 	public void addLast(Item item) {
-		Node old = last;
-		if (first == last) first = old;
-		last = new Node();
+		Node<Item> old = last;
+		last = new Node<Item>();
 		last.item = item;
 		if (old == null);
+		else if (first == old) {
+			first.next = last;
+		}
 		else {
 			old.next = last;			
 		}
@@ -66,9 +73,8 @@ public class Deque<Item> {
 	
 	public Item removeLast() {
 		Item item = last.item;
-		Node walker = first;
-		System.out.println(walker.next == last);
-		while (walker.next != last) {
+		Node<Item> walker = first;
+		for (int i = 0; i < this.size()-2; i++) {
 			walker = walker.next;
 		}
 		last = walker;
@@ -76,8 +82,26 @@ public class Deque<Item> {
 		return item;
 	}
 	
-//	public Iterator<Item> iterator() {
-//		
-//	}
+	@Override
+	public Iterator<Item> iterator() { return new DequeIterator(); }
+	
+	private class DequeIterator implements Iterator<Item>
+	{
+		private Node<Item> current = first;
+		
+		@Override
+		public boolean hasNext() { return current != null; }
+		
+		@Override
+		public void remove() { /* not supported */ }
+		
+		@Override
+		public Item next() {
+			Item item = current.item;
+			current = current.next;
+			return item;
+		}
+		
+	}
 	
 }
