@@ -3,18 +3,18 @@ package Week2;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Week2.Deque.Node;
-
 class DequeTest {
 	
-	private Deque<String> d;
+	private DequeAttempt2<String> d;
 	
 	@BeforeEach
 	void setup() {
-		d = new Deque<String>();
+		d = new DequeAttempt2<String>();
 	}
 	
 	@Test
@@ -70,9 +70,9 @@ class DequeTest {
 	@Test
 	void testSizeIncreases() {
 		d.addFirst("well");
-		assertEquals(d.size(),1);
+		assertEquals(d.getSize(),1);
 		d.addLast("hello");
-		assertEquals(d.size(),2);
+		assertEquals(d.getSize(),2);
 	}
 	
 	@Test
@@ -80,9 +80,9 @@ class DequeTest {
 		d.addFirst("well");
 		d.addLast("hello");
 		d.removeLast();
-		assertEquals(d.size(),1);
+		assertEquals(d.getSize(),1);
 		d.removeFirst();
-		assertEquals(d.size(), 0);
+		assertEquals(d.getSize(), 0);
 	}
 	
 	@Test
@@ -91,11 +91,31 @@ class DequeTest {
 		d.addFirst("world");
 		d.addFirst(",");
 		d.addLast("hello");
+		d.addFirst("gee");
 		String s = "";
 		for(String n : d) {
 			s += n + " ";
 		}
-		System.out.println(s);
+		assertEquals("gee , world well hello ", s);
+	}
+	
+	@Test
+	void testExceptions() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			d.addFirst(null);
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			d.addLast(null);
+		});
+		assertThrows(NoSuchElementException.class, () -> {
+			d.removeFirst();
+		});
+		assertThrows(NoSuchElementException.class, () -> {
+			d.removeLast();
+		});
+		assertThrows(UnsupportedOperationException.class, () -> {
+			d.iterator().remove();
+		});
 	}
 
 }

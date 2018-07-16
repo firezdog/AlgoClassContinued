@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 //First attempt -- end and beginning chains not connecting properly
 
-public class Deque<Item> implements Iterable<Item> {
+public class DequeAttempt<Item> implements Iterable<Item> {
 	
 	private Node<Item> first;
 	public Node<Item> getFirst() {
@@ -23,7 +23,7 @@ public class Deque<Item> implements Iterable<Item> {
 		Node<Item> next;
 	}
 	
-	public Deque() {
+	public DequeAttempt() {
 		first = null;
 		last = first;
 		size = 0;
