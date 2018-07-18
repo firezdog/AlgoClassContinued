@@ -1,8 +1,11 @@
 package Week2;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -112,6 +115,12 @@ class DequeTest {
 		});
 		assertThrows(NoSuchElementException.class, () -> {
 			d.removeLast();
+		});
+		assertThrows(NoSuchElementException.class, () -> {
+			d.addFirst("hello");
+			Iterator<String> i = d.iterator();
+			i.next();
+			i.next();
 		});
 		assertThrows(UnsupportedOperationException.class, () -> {
 			d.iterator().remove();
