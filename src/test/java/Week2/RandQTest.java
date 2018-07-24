@@ -2,6 +2,7 @@ package Week2;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +41,12 @@ class RandQTest {
 		});
 		assertThrows(NoSuchElementException.class, () -> {
 			q.sample();
+		});
+		assertThrows(NoSuchElementException.class, () -> {
+			q.iterator().next();
+		});
+		assertThrows(UnsupportedOperationException.class, () -> {
+			q.iterator().remove();
 		});
 	}
 	
@@ -85,6 +92,28 @@ class RandQTest {
 		System.out.println(q.dequeue());
 		System.out.println(q.dequeue());
 		System.out.println(q.dequeue());
+	}
+	
+	@Test
+	void testIterator() {
+		System.out.println("=====ITERATOR TEST======");
+		q.enqueue("1");
+		q.enqueue("2");
+		q.enqueue("3");
+		q.enqueue("4");
+		q.enqueue("5");
+		q.enqueue("6");
+		q.enqueue("7");
+		q.enqueue("8");
+		q.enqueue("9");
+		q.enqueue("0");
+		for (String s: q) {
+			System.out.print(s + " ");
+		}
+		System.out.println();
+		for (String s: q) {
+			System.out.print(s + " ");
+		}
 	}
 
 }

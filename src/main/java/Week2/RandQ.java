@@ -10,10 +10,6 @@ public class RandQ<Item> implements Iterable<Item> {
 		Item item;
 		Node next;
 		
-		public Node() {}
-		public Node(Item item) {
-			this.item = item;
-		}
 		public Node(Item item, Node next) {
 			this.item = item;
 			this.next = next;
@@ -74,9 +70,47 @@ public class RandQ<Item> implements Iterable<Item> {
 		}
 		return walker.item;
 	}
-
+	
 	public Iterator<Item> iterator() {
-		return null;
+		return new RandIterator();
+	}
+	
+	private class RandIterator implements Iterator<Item>
+	{
+
+		private DequeAttempt2<Item> d; 
+		
+		Random ayn = new Random();
+		private Iterator<Item> i;
+		
+		public RandIterator() {
+			d = new DequeAttempt2<Item>();
+			Node walker = head;
+			while (walker != null) {
+				int bool = ayn.nextInt(2);
+				if (bool == 0) {
+					d.addFirst(walker.item);
+				} else {
+					d.addLast(walker.item);
+				}
+				walker = walker.next;
+			}
+			i = d.iterator();
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return i.hasNext();
+		}
+		
+		@Override
+		public void remove() { throw new UnsupportedOperationException(); }
+		
+		@Override
+		public Item next() {
+			return i.next();
+		}
+	
 	}
 	
 }
