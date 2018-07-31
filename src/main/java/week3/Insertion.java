@@ -5,10 +5,18 @@ import edu.princeton.cs.algs4.StdOut;
 
 //Example of a sort class.
 
-public class Example {
+public class Insertion {
 
 	public static void sort(Comparable[] a) 
-	{ 		/*sorting method goes here*/	}
+	{ 	
+		int N = a.length;
+		for (int i = 1; i < N; i++) {
+			Comparable toCompare = a[i];
+			for (int j = 0; j < i; j++) {
+				if (less(toCompare,a[j])) exch(a, i, j);
+			}
+		}
+	}
 	
 	private static boolean less(Comparable v, Comparable w) 
 	{ return v.compareTo(w) < 0; }
@@ -18,10 +26,11 @@ public class Example {
 	
 	private static void show(Comparable[] a) 
 	{ //print the array on one line
+		StdOut.println("Results for insertion sort:");
 		for (int i=0; i < a.length; i++) {
 			StdOut.print(a[i] + " ");
-			StdOut.println();
 		}
+		StdOut.println();
 	}
 	
 	public static boolean isSorted(Comparable[] a) 

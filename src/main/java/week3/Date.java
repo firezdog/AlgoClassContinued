@@ -8,7 +8,7 @@ public class Date implements Comparable<Date>{
 	private final int month;
 	private final int year;
 	
-	public Date(int d, int m, in y)
+	public Date(int d, int m, int y)
 	{		day = d; month = m; year = y;	}
 	
 	public int day() 	{	return day; }
