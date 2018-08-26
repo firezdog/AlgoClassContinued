@@ -2,36 +2,28 @@ package week3;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.Shell;
 
 //Example of a sort class.
 
-public class Insertion {
+public class ShellSort {
 
 	public static void sort(Comparable[] a) 
-	{ 	
+	{
 		int N = a.length;
-		for (int i = 1; i < N; i++) {
-			
-			StdOut.print(i + ": ");
-			show(a);
-			
-			Comparable toCompare = a[i];
-			
-//			A yet more efficient version? -- just move larger entries one to the right and replace at the end
-			int j = i;
-			while(j > 0 && less(toCompare,a[j-1])) { 
-				a[j] = a[j-1];
-				j--;
+		int h = 1;
+		// get to the last segment
+		while (h < N/3) h = 3*h + 1;
+		while (h >= 1)
+		{
+			for (int i = h; i < N; i++)
+			{
+				for (int j = i; j >= h && less(a[j], a[j-h]); j -= h)
+					exch(a, j, j-h);
+					show(a);
 			}
-			a[j] = toCompare;
-			
-//			A more efficient version -- go from back and stop checking when elements are in order
-//			for (int j = i; j > 0 && less(a[j],a[j-1]); j--) exch(a, j, j-1);
-			
-//			for (int j = 0; j < i; j++) {
-//				if (less(toCompare,a[j])) exch(a, i, j);
-//			}
-		}
+			h = h/3;
+		}	
 	}
 	
 	private static boolean less(Comparable v, Comparable w) 
